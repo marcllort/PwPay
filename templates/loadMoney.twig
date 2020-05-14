@@ -1,0 +1,86 @@
+{% extends "base.twig" %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- Banner -->
+    <section id="main" class="wrapper">
+        <div class="container">
+            <section>
+                {% if IBANOK is null or IBANOK == false %}
+                    <div class="align-center">
+                        <h2>Add IBAN</h2>
+                        <form id="addIBAN-form"
+                              action="{{ url_for('loadBankAccount') }}"
+                              method="POST">
+                            <div class="form-row">
+                                <div class="col-md-4 offset-md-2">
+                                    <label> Owner Name </label>
+                                    {% if IBANOK is null %}
+                                        <input type="text" class="form-control" id="validationOwner" name="owner"
+                                               required>
+                                    {% else %}
+                                        <input type="text" class="form-control is-valid" id="validationOwner"
+                                               name="owner" value={{ owner }}>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4 md-2">
+                                    <label> IBAN </label>
+                                    {% if IBANOK is null %}
+                                        <input type="text" class="form-control" id="validationIBAN" name="IBAN"
+                                               required>
+                                    {% elseif IBANOK == false %}
+                                        <input type="text" class="form-control is-invalid" id="validationIBAN"
+                                               name="IBAN" value={{ IBAN }}>
+                                    {% else %}
+                                        <input type="text" class="form-control is-valid" id="validationIBAN" name="IBAN"
+                                               value={{ IBAN }}>
+                                    {% endif %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <input type="submit" value="loadBankAccount">
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="align-center">
+                        <form id="loadMoney-form"
+                              action="{{ url_for('loadMoney') }}"
+                              method="POST">
+                            <div class="form-column">
+                                <div class="col-md-4 offset-md-4">
+                                    <label> How many money you want to load? </label>
+
+                                    <label> {{ IBAN }} </label>
+                                    {% if amountOK is null %}
+                                        <input type="text" class="form-control" id="validationAmount" name="amount"
+                                               required>
+                                    {% else %}
+                                        <input type="text" class="form-control is-invalid" id="validationAmount"
+                                               name="amount" value={{ amount }}>
+                                    {% endif %}
+                                    <div class="invalid-feedback">
+                                        Invalid value for amount. Must use '.' and a mas of 2 decimals.
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <input type="submit" value="loadMoney">
+                        </form>
+                    </div>
+                {% endif %}
+            </section>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="{{ full_url_for('home') }}assets/js/ajax.js"></script>
+{% endblock %}

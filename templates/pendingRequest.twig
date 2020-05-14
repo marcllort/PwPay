@@ -1,0 +1,58 @@
+{% extends "base.twig" %}
+{% block page_title %}
+
+{% endblock %}
+{% block content %}
+
+    <!-- Banner -->
+    <section id="main" class="wrapper">
+        <div class="container">
+            <section>
+                <div class="align-center">
+                    <h2>Pending requests</h2>
+                    {% if transactions == null %}
+                        <div class=" w-50 mx-auto card text-white  mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title text-center ">NO INFORMATION ABOUT RECENT TRANSACTIONS</h5>
+                            </div>
+                        </div>
+                    {% else %}
+
+                        <table class=" mx-auto table table-sm ">
+                            <thead>
+                            <tr>
+                                <th scope="col">Receiver</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Date</th>
+                                <th scope="col"></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for transaction in transactions %}
+                                <form id="acceptRequest-form-{{transaction.id}}"
+                                      action="{{ url_for('acceptRequestMoney', { 'id' : transaction.id }) }}"
+                                      method="POST">
+                                    <input type="hidden" name="id" value={{ transaction.id }} />
+                                    <tr>
+                                        <td>{{ transaction.receivername }}</td>
+                                        <td>{{ transaction.amount }} €</td>
+                                        <td>{{ transaction.date }}</td>
+                                        <td><input type="submit" value="Pay money request"></td>
+                                    </tr>
+                                </form>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            </section>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="{{ full_url_for('home') }}assets/js/ajax.js"></script>
+{% endblock %}

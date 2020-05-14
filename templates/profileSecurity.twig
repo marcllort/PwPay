@@ -1,0 +1,91 @@
+{% extends "base.twig" %}
+{% block page_title %}
+
+{% endblock %}
+{% block content %}
+    <div class="form-bg">
+
+    </div>
+    <section id="main" class="wrapper">
+        <div class="container">
+            <div class="align-center">
+                <h2>Security</h2>
+                <div class="mar">
+
+                    <form id="register-form" action="{{ url_for('profileSecurityPost') }}"
+                          method="POST" novalidate>
+                        <div class="col-md-4 offset-md-4">
+                            <label for="validationPassword">Old Password</label>
+                            {% if passwordOldOK is null %}
+                                <input type="password" class="form-control" id="validationPassword1"
+                                       name="passwordOld">
+                            {% elseif passwordOldOK == false %}
+                                <input type="password" class="form-control is-invalid" id="validationPassword1"
+                                       name="passwordOld">
+                            {% else %}
+                                <input type="password" class="form-control is-valid" id="validationPassword1"
+                                       name="passwordOld">
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                Invalid old password
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 offset-md-4">
+                            <label for="validationPassword">New Password</label>
+                            {% if passwordOK is null %}
+                                <input type="password" class="form-control" id="NewPassword"
+                                       name="password">
+                            {% elseif passwordOK == false %}
+                                <input type="password" class="form-control is-invalid" id="NewPassword"
+                                       name="password">
+                            {% else %}
+                                <input type="password" class="form-control is-valid" id="NewPassword"
+                                       name="password">
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4 offset-md-4">
+                            <label for="validationPassword">Confirm Password</label>
+                            {% if passwordOK is null %}
+                                <input type="password" class="form-control" id="NewPassword2"
+                                       name="password2">
+                            {% elseif passwordOK == false %}
+                                <input type="password" class="form-control is-invalid" id="NewPassword2"
+                                       name="password2">
+                            {% else %}
+                                <input type="password" class="form-control is-valid" id="NewPassword2"
+                                       name="password2">
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                The new passwords aren't correct
+                            </div>
+                        </div>
+
+                        <br>
+                        <ul class="actions">
+                            <input type="submit" value="Update"></li>
+                        </ul>
+                    </form>
+                </div>
+                <br>
+
+                </form>
+            </div>
+        </div>
+    </section>
+    </div>
+    </section>
+
+
+    </form>
+
+{% endblock %}
+
+
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="{{ full_url_for('home') }}assets/js/ajax.js"></script>
+{% endblock %}

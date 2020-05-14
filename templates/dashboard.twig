@@ -1,0 +1,75 @@
+{% extends "base.twig" %}
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+    <br><br><br>
+    <div class=" w-50 mx-auto card text-white bg-dark mb-3">
+        <div class="card-body">
+            <h5 class="card-title text-center text-white">CURRENT BALANCE</h5>
+            <h6 class="card-price text-center display-1 text-white">{{ balance }} €</h6>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    {% if transactions == null %}
+        <div class=" w-50 mx-auto card text-white  mb-3">
+            <div class="card-body">
+                <h5 class="card-title text-center ">NO INFORMATION ABOUT RECENT TRANSACTIONS</h5>
+            </div>
+        </div>
+    {% else %}
+
+        <table class="w-50 mx-auto table table-sm ">
+            <thead>
+            <tr>
+                <th scope="col">Sender</th>
+                <th scope="col">Receiver</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Date</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for transaction in transactions %}
+                {% if id == transaction.senderId %}
+                    {% if transaction.senderId == transaction.receiverId%}
+                        <tr class="table-primary">
+                            <td>WIRE TRANSFER</td>
+                            <td>--</td>
+                            <td>{{ transaction.amount }}€</td>
+                            <td>{{ transaction.date }}</td>
+                        </tr>
+                    {% else %}
+                        <tr class="table-danger">
+                            <td>YOU</td>
+                            <td>{{ transaction.receivername }}</td>
+                            <td>{{ transaction.amount }}€</td>
+                            <td>{{ transaction.date }}</td>
+                        </tr>
+                    {% endif %}
+                {% else %}
+                    <tr class="table-success">
+                        <td>{{ transaction.sendername }}</td>
+                        <td>YOU</td>
+                        <td>{{ transaction.amount }}€</td>
+                        <td>{{ transaction.date }}</td>
+
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <br><br><br><br>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="{{ full_url_for('home') }}assets/js/ajax.js"></script>
+{% endblock %}

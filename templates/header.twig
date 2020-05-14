@@ -1,0 +1,44 @@
+
+    {% block page_title %}
+        {% if page_title is empty %}
+        <header id="header">
+            <h1><a href="">PwPay</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="sign-in">Sign in</a></li>
+                    <li><a href="sign-up" class="button special">Sign Up</a></li>
+                </ul>
+            </nav>
+        </header>
+
+{% else %}
+
+        <header id="header">
+        <h1><a href="">PwPay</a></h1>
+        <nav id="nav">
+            <ul>
+                <li><a href="/dashboard">Home</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/account/bank-account">Load Money</a></li>
+                <li><a href="/account/money/send">Send Money</a></li>
+                <li><a href="/account/money/requests">Request Money</a></li>
+                <li><a href="/account/money/requests/pending">My pending requests</a></li>
+                <li><a href="/account/transactions">Transactions</a></li>
+
+
+
+
+                <li>
+                    <form id="logout-form"
+                          action="{{ url_for('logout') }}"
+                          method="POST">
+                        <input type="submit" value="Logout" type="hidden">
+                    </form>
+                </li>
+            </ul>
+        </nav>
+        </header>
+
+{% endif %}
+    {% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.twig" %}
+{% block content %}
+
+    <!-- Banner -->
+    <section id="main" class="wrapper">
+        <div class="container">
+            <section>
+                <div class="align-center">
+                    <h2>Login</h2>
+                    <form id="login-form"
+                          action="{{ url_for('login') }}"
+                          method="POST">
+                        <div class="form-row">
+                            <div class="col-md-4 offset-md-2">
+                                <label> Username </label>
+                                {% if usernameOK is null %}
+                                    <input type="text" class="form-control" id="validationEmail" name="username"
+                                           required>
+                                {% elseif usernameOK == false or passwordOK == false %}
+                                    <input type="text" class="form-control is-invalid" id="validationEmail"
+                                           name="username" value={{ username }}>
+                                {% else %}
+                                    <input type="text" class="form-control is-valid" id="validationEmail"
+                                           name="username" value={{ username }}>
+                                {% endif %}
+                                <div class="invalid-feedback">
+                                    Error, invalid username or password.
+                                </div>
+                            </div>
+                            <div class="col-md-4 md-2">
+                                <label> Password </label>
+                                {% if passwordOK is null %}
+                                    <input type="password" class="form-control" id="validationPassword" name="password"
+                                           required>
+                                {% elseif usernameOK == false or passwordOK == false %}
+                                    <input type="password" class="form-control is-invalid" id="validationPassword"
+                                           name="password" value={{ password }}>
+                                {% else %}
+                                    <input type="password" class="form-control is-valid" id="validationPassword"
+                                           name="password" value={{ password }}>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        <br>
+                        <input type="submit" value="Login">
+                    </form>
+                </div>
+            </section>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="{{ full_url_for('home') }}assets/js/ajax.js"></script>
+{% endblock %}

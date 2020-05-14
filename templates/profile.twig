@@ -1,0 +1,91 @@
+{% extends "base.twig" %}
+{% block page_title %}
+
+{% endblock %}
+{% block content %}
+    <div class="form-bg">
+    </div>
+    <section id="main" class="wrapper">
+        <div class="container">
+            <section>
+                <div class="align-center">
+                    <h2>Profile</h2>
+                    <div class="mar">
+
+                        <form action="{{ url_for('profileAction') }}"
+                              enctype="multipart/form-data"
+                              method="POST">
+                            <div class="form-column">
+                                <div class="col-md-4 offset-md-4">
+                                    <div class="image-upload">
+                                        {% if  imageOk == true %}
+                                            <label for="file-input">
+                                                <img src="{{ imageName }}"/>
+                                            </label>
+                                        {% else %}
+                                            <label for="file-input">
+                                                <img src="https://www.sideralsoft.com/wp-content/uploads/2019/03/user-placeholder.png"/>
+                                            </label>
+                                        {% endif %}
+                                        <input class="invisible" id="file-input" type="file" name="file"/>
+                                        *Only .png files allowed
+                                    </div>
+
+                                    <label for="validationEmail">Email</label>
+                                    <input type="text" class="form-control" id="validationEmail"
+                                           name="email" value={{ email }} readonly>
+                                </div>
+
+                                <div class="col-md-4 offset-md-4">
+                                    <label for="validationBirthday">Birthdate</label>
+                                    <input type="date" name="birthday" class="form-control"
+                                           id="validationBirthday" value={{ birthday }} readonly>
+                                </div>
+                                <div class="col-md-4 offset-md-4">
+                                    <label for="validationPhone">Phone</label>
+                                    {% if phoneOK is null %}
+                                        <input type="text" name="phone" class="form-control" id="validationPhone"
+                                               value={{ phone }} required>
+                                    {% elseif phoneOK == false %}
+                                        <input type="text" name="phone" class="form-control is-invalid"
+                                               id="validationPhone" placeholder="+34 123456789" value={{ phone }}>
+                                        {% if phoneBad == true %}
+                                            <div class="invalid-feedback">
+                                                Invalid phone.
+                                            </div>
+                                        {% else %}
+                                            <div class="invalid-feedback">
+                                                Invalid phone number.
+                                            </div>
+                                        {% endif %}
+                                    {% else %}
+                                        <input type="text" name="phone" class="form-control is-valid"
+                                               id="validationPhone" placeholder="+34 123456789" value={{ phone }}>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <br>
+
+                            <input type="submit" value="Update">
+                        </form>
+                        <ul class="actions">
+                            <input type="submit" value="Security" onclick="location.href='/profile/security';">
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+
+    </form>
+
+{% endblock %}
+
+
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="{{ full_url_for('home') }}assets/js/ajax.js"></script>
+{% endblock %}

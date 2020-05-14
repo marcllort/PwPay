@@ -1,0 +1,63 @@
+{% extends "base.twig" %}
+{% block page_title %}
+
+{% endblock %}
+{% block content %}
+
+    <!-- Banner -->
+    <section id="main" class="wrapper">
+        <div class="container">
+            <section>
+                <div class="align-center">
+                    <form id="sendMoney-form"
+                          action="{{ url_for('requestMoney') }}"
+                          method="POST">
+                        <div class="form-column">
+                            <div class="col-md-4 offset-md-4">
+                                <label> Who do you want to requests the money from? (email) </label>
+                                <label> {{ IBAN }} </label>
+                                {% if emailOK is null %}
+                                    <input type="text" class="form-control" id="receiver" name="email" required>
+                                {% elseif emailOK == false or emailExist == false %}
+                                    <input type="text" class="form-control is-invalid" id="receiver" name="email" value={{ email }}>
+                                    {% if emailExist == false %}
+                                        <div class="invalid-feedback">
+                                            This email doesn't exist.
+                                        </div>
+                                    {% else %}
+                                        <div class="invalid-feedback">
+                                            This isn't a real email or is your own email.
+                                        </div>
+                                    {% endif %}
+                                {% else %}
+                                    <input type="text" class="form-control is-valid" id="receiver" name="email" value={{ email }}>
+                                {% endif %}
+
+                                <label> Amount of money you want to request </label>
+
+                                {% if amountOK is null %}
+                                    <input type="text" class="form-control" id="validationAmount" name="amount" required>
+                                {% elseif amountOK == false %}
+                                    <input type="text" class="form-control is-invalid" id="validationAmount" name="amount" value={{ amount }}>
+                                    <div class="invalid-feedback">
+                                        Invalid value for amount. Must use '.' and a mas of 2 decimals.
+                                    </div>
+                                {% else %}
+                                    <input type="text" class="form-control is-valid" id="validationAmount" name="amount" value={{ amount }}>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <br>
+                        <input type="submit" value="Request money">
+                    </form>
+                </div>
+            </section>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="{{ full_url_for('home') }}assets/js/ajax.js"></script>
+{% endblock %}

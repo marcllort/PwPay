@@ -1,0 +1,23 @@
+{
+  "name": "pw2/grup15",
+  "description": "PwPay",
+  "require": {
+    "slim/slim": "4.*",
+    "slim/psr7": "^1.0",
+    "php-di/slim-bridge": "^3.0",
+    "slim/twig-view": "3.0",
+    "dflydev/fig-cookies": "^2.0",
+    "symfony/dotenv": "^5.0",
+    "phpmailer/phpmailer": "^6.1",
+    "jschaedl/iban-validation": "^1.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "SallePW\\SlimApp\\": "src/",
+      "Pw\\Pay\\Controller\\": "src/Controller/",
+      "Pw\\Pay\\Middleware\\": "src/Middleware/",
+      "Pw\\Pay\\Model\\": "src/Model/",
+      "Pw\\Pay\\Repository\\": "src/Repository/"
+    }
+  }
+}

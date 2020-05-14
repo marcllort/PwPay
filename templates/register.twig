@@ -1,0 +1,110 @@
+{% extends "base.twig" %}
+{% block content %}
+
+    <section id="main" class="wrapper">
+        <div class="container">
+            <section>
+                <div class="align-center">
+                    <h2>Register</h2>
+                    <div class="mar">
+
+                        <form class="needs-validation" id="register-form" action="{{ url_for('register') }}"
+                              method="POST" novalidate>
+                            <div class="form-column">
+                                <div class="col-md-4 offset-md-4">
+                                    <label for="validationEmail">Email</label>
+                                    {% if emailOK is null %}
+                                        <input type="text" class="form-control" id="validationEmail" name="email"
+                                               placeholder="example@salle.url.edu" required>
+                                    {% elseif emailOK == false or emailRepeted == true %}
+                                        <input type="text" class="form-control is-invalid" id="validationEmail"
+                                               name="email" placeholder="example@salle.url.edu" value={{ email }}>
+                                        {% if emailRepeted == true %}
+                                            <div class="invalid-feedback">
+                                                Email allready registered.
+                                            </div>
+                                        {% else %}
+                                            <div class="invalid-feedback">
+                                                Must be from salle.url.edu domain.
+                                            </div>
+                                        {% endif %}
+                                    {% else %}
+                                        <input type="text" class="form-control is-valid" id="validationEmail"
+                                               name="email" placeholder="example@salle.url.edu" value={{ email }}>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-4 offset-md-4">
+                                    <label for="validationPassword">Password</label>
+                                    {% if passwordOK is null %}
+                                        <input type="password" class="form-control" id="validationPassword"
+                                               name="password" required>
+                                    {% elseif passwordOK == false %}
+                                        <input type="password" class="form-control is-invalid" id="validationPassword"
+                                               name="password" value={{ password }}>
+                                    {% else %}
+                                        <input type="password" class="form-control is-valid" id="validationPassword"
+                                               name="password" value={{ password }}>
+                                    {% endif %}
+                                    <div class="invalid-feedback">
+                                        Required upper and lower case, numbers and 6 lenght minim characters.
+                                    </div>
+                                </div>
+                                <div class="col-md-4 offset-md-4">
+                                    <label for="validationBirthday">Birthdate</label>
+                                    {% if birthdayOK is null %}
+                                        <input type="date" name="birthday" class="form-control" id="validationBirthday"
+                                               required>
+                                    {% elseif birthdayOK == false %}
+                                        <input type="date" name="birthday" class="form-control is-invalid"
+                                               id="validationBirthday" value={{ birthday }}>
+                                    {% else %}
+                                        <input type="date" name="birthday" class="form-control is-valid"
+                                               id="validationBirthday" value={{ birthday }}>
+                                    {% endif %}
+                                    <div class="invalid-feedback">
+                                        Must be 18 years old, or more.
+                                    </div>
+                                </div>
+                                <div class="col-md-4 offset-md-4">
+                                    <label for="validationPhone">Phone</label>
+                                    {% if phoneOK is null %}
+                                        <input type="text" name="phone" class="form-control" id="validationPhone"
+                                               placeholder="+34 123456789" required>
+                                    {% elseif phoneOK == false %}
+                                        <input type="text" name="phone" class="form-control is-invalid"
+                                               id="validationPhone" placeholder="+34 123456789" value={{ phone }}>
+                                        {% if phoneBad == true %}
+                                            <div class="invalid-feedback">
+                                                Invalid phone.
+                                            </div>
+                                        {% else %}
+                                            <div class="invalid-feedback">
+                                                Required +34 at the beggining of the phone.
+                                            </div>
+                                        {% endif %}
+                                    {% else %}
+                                        <input type="text" name="phone" class="form-control is-valid"
+                                               id="validationPhone" placeholder="+34 123456789" value={{ phone }}>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <br>
+                            <ul class="actions">
+                                <input type="submit" value="Register"></li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+
+
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script
+            type="application/javascript"
+            src="/assets/js/ajax.js"></script>
+{% endblock %}
