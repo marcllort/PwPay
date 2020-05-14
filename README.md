@@ -1,3 +1,6 @@
+# Example
+![](pwpay.gif)
+
 # Local Environment
 > Using Docker for our local environment
 
