@@ -1,8 +1,8 @@
-# Example
+# PwPay Example
 ![](pwpay.gif)
 
-# Local Environment
-> Using Docker for our local environment
+## Local Environment
+Using Docker for our local environment
 
 ## Requirements
 
