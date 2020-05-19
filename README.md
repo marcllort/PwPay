@@ -1,6 +1,9 @@
 # PwPay Example
 ![](pwpay.gif)
 
+## Try it out!
+https://powerful-stream-73113.herokuapp.com/
+
 ## Local Environment
 Using Docker for our local environment
 
